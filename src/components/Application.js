@@ -1,7 +1,8 @@
-import React,  { useState } from "react";
+import React, { useState } from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
+import Appointment from "./Appointment";
 
 const days = [
   {
@@ -21,8 +22,27 @@ const days = [
   }
 ];
 
+const appointments = [
+  {
+    id: 1,
+    time: "12pm"
+  },
+  {
+    id: 2,
+    time: "1pm",
+    interview: {
+      student: "Lydia Miller-Jones",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png"
+      }
+    }
+  }
+];
+
 export default function Application(props) {
-  const [selectedDay, setSelectedDay] = useState('Monday');
+  const [selectedDay, setSelectedDay] = useState("Monday");
 
   return (
     <main className="layout">
@@ -34,20 +54,19 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={days}
-            day={selectedDay}
-            setDay={setSelectedDay}
-          />
+          <DayList days={days} day={selectedDay} setDay={setSelectedDay} />
         </nav>
-        {/* <img
-          className="sidebar__lhl sidebar--centered"
-          src="images/lhl.png"
-          alt="Lighthouse Labs"
-        /> */}
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {appointments.map(appointment => {
+          return (
+            <Appointment
+              key={appointment.id}
+              {...appointment}
+            ></Appointment>
+          );
+        })}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
