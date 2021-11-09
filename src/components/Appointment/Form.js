@@ -17,10 +17,16 @@ export default function Form(props) {
     setName("");
     setInterviewer(null);
   };
+
   const cancel = () => {
     reset();
     props.onCancel();
   };
+
+  const save = () => {props.onSave(name, interviewer);}
+  // const validate = () => {
+  //   props.onSave(name, interviewer);
+  // }
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -32,7 +38,7 @@ export default function Form(props) {
             type="text"
             placeholder="Enter Student Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e => setName(e.target.value))}
           />
         </form>
         <InterviewerList
@@ -46,7 +52,7 @@ export default function Form(props) {
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={props.onSave}>
+          <Button confirm onClick={save}>
             Save
           </Button>
         </section>
